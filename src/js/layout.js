@@ -1,6 +1,12 @@
 import React from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom"; //permite manejar distintas vistas
 import ScrollToTop from "./component/scrollToTop";
+
+import { Planets } from "./views/Planets";
+import { PlanetsDetails } from "./component/planetsdetails";
+
+import { Character } from "./views/character";
+import { CharactersDetails } from "./component/charactersdetails";
 
 import { Home } from "./views/home";
 import { Demo } from "./views/demo";
@@ -25,12 +31,29 @@ const Layout = () => {
 						<Route exact path="/">
 							<Home />
 						</Route>
+
+						<Route exact path="/planets">
+							<Planets />
+						</Route>
+						<Route exact path="/planetsdetails/:id01/">
+							<PlanetsDetails />
+						</Route>
+
+						<Route exact path="/character/">
+							<Character />
+						</Route>
+						<Route exact path="/charactersdetails/:id1/">
+							<CharactersDetails />
+						</Route>
+
 						<Route exact path="/demo">
 							<Demo />
 						</Route>
+
 						<Route exact path="/single/:theid">
 							<Single />
 						</Route>
+
 						<Route>
 							<h1>Not found!</h1>
 						</Route>

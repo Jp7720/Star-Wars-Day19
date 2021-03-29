@@ -12,9 +12,32 @@ const getState = ({ getStore, getActions, setStore }) => {
 					background: "white",
 					initial: "white"
 				}
-			]
+			],
+			Favorites: [],
+			peoples: [{ name: "hh" }],
+
+			planets: []
 		},
 		actions: {
+			loadPeoples: async () => {
+				const url = "https://swapi.dev/api/people/";
+				const response = await fetch(url);
+				const data = await response.json();
+				setStore({ peoples: data.results }); //variable global
+			},
+
+			loadPlanets: async () => {
+				const url = "https://swapi.dev/api/planets/";
+				const response = await fetch(url);
+				const data = await response.json();
+				setStore({ planets: data.results });
+			},
+			addFavorites: newItem => {
+				const storeCopy = getStore();
+				const updatedfavorites = storeCopy.favorites.concat(newItem);
+				setStore({ favorites: updatedfavorites });
+			},
+
 			// Use getActions to call a function within a fuction
 			exampleFunction: () => {
 				getActions().changeColor(0, "green");

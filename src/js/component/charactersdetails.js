@@ -2,14 +2,15 @@ import React, { useContext } from "react";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
+import PropTypes from "prop-types";
 
-export const CharactersDetails = () => {
+export const CharactersDetails = props => {
 	const { store, actions } = useContext(Context);
 	const { id1 } = useParams();
 	return (
 		<>
 			{store.peoples.map((item, index) => {
-				if (params == index) {
+				if (id1 == index) {
 					console.log("entro al if ....");
 					return <li key={index}>{item.name} </li>;
 				}

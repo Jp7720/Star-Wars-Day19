@@ -15,7 +15,7 @@ export const CharactersDetails = props => {
 					return <li key={index}>{item.name} </li>;
 				}
 			})}
-			;
+
 			<div className="bg-light p-5 rounded-lg m-3">
 				<h1 className="display-4">{store.peoples[id1].name}</h1>
 				<p className="lead"></p>

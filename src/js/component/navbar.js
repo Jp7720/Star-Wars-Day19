@@ -1,7 +1,17 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import { Context } from "../store/appContext";
+
+import "bootstrap";
+import "bootstrap/dist/css/bootstrap.css";
+import "bootstrap/dist/js/bootstrap.js";
+import $ from "jquery"; //de la 5 a la 9 permite el funcionamiento de l drop
+import Popper from "popper.js";
 
 export const Navbar = () => {
+	const { store, actions } = useContext(Context);
+
+	let contador = store.favorites.length;
 	return (
 		<nav className="navbar navbar-light bg-dark mb-3">
 			<img
@@ -22,18 +32,29 @@ export const Navbar = () => {
 						data-toggle="dropdown"
 						aria-haspopup="true"
 						aria-expanded="false">
-						Favorites <span className="badge badge-light">0</span>
+						Favorites {""} {contador}
 					</button>
-					<div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-						<a className="dropdown-item" href="#">
-							Action
-						</a>
-						<a className="dropdown-item" href="#">
-							Another action
-						</a>
-						<a className="dropdown-item" href="#">
-							Something else here
-						</a>
+
+					<div className="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+						{contador == 0 ? (
+							<div id="dropdown" className="d-flex ml-4">
+								Empty
+							</div>
+						) : (
+							store.favorites.map((item, index) => {
+								return (
+									<div key={index} id="dropdown" className="d-flex flex-row">
+										<Link className="d-flex flex-grow-1" to={"/info/" + item}>
+											<span className="dropdown-item">{item}</span>
+										</Link>
+										<i
+											className="fas fa-trash-alt mt-2 mr-2"
+											onClick={() => actions.deleteFav(item)}
+										/>
+									</div>
+								);
+							})
+						)}
 					</div>
 				</div>
 			</div>

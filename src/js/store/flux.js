@@ -13,7 +13,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					initial: "white"
 				}
 			],
-			Favorites: [],
+			favorites: [],
 			peoples: [{ name: "hh" }],
 
 			planets: []
@@ -32,10 +32,19 @@ const getState = ({ getStore, getActions, setStore }) => {
 				const data = await response.json();
 				setStore({ planets: data.results });
 			},
-			addFavorites: newItem => {
-				const storeCopy = getStore();
-				const updatedfavorites = storeCopy.favorites.concat(newItem);
-				setStore({ favorites: updatedfavorites });
+
+			addFavorites: variable => {
+				let favoritos = getStore().favorites;
+				favoritos = favoritos.concat(variable);
+				setStore({ favorites: [...favoritos] });
+			},
+
+			deleteFav: variable => {
+				let favoritos = getStore().favorites;
+				let borrar = favoritos.find(el => el === variable);
+				let index = favoritos.indexOf(borrar);
+				favoritos.splice(index, 1);
+				setStore({ favorites: [...favoritos] });
 			},
 
 			// Use getActions to call a function within a fuction
